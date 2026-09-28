@@ -1,0 +1,17 @@
+$kind: http-request
+name: http://localhost:8080/tareas/1
+description: ""
+url: "{{baseUrl}}/tareas/2"
+method: PATCH
+body:
+  type: json
+  content: "{\r
+
+    \    \"id\": 2,\r
+
+    \    \"prioridad\": 10,\r
+
+    \    \"completada\": false\r
+
+    }"
+order: 1790605501631

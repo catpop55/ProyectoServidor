@@ -1,0 +1,43 @@
+$kind: http-request
+name: "{{baseUrl}}/tareas"
+description: ""
+url: "{{baseUrl}}/tareas"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"id\": 1,\r
+
+    \  \"titulo\": \"Prueba A de la colección\",\r
+
+    \  \"prioridad\": \"alta\",\r
+
+    \  \"completada\": false\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Creación con 201\", function () {\r
+
+      \    pm.response.to.have.status(201);\r
+
+      });\r
+
+      pm.test(\"Id asignado y contenido esperado\", function () {\r
+
+      \    const cuerpo = pm.response.json();\r
+
+      \    pm.expect(cuerpo.id).to.be.above(0);\r
+
+      \    pm.expect(cuerpo.titulo).to.equal(\"Prueba A de la colección\");\r
+
+      });\r
+
+      pm.test(\"Incluye Location\", function () {\r
+
+      \    pm.expect(pm.response.headers.get(\"Location\")).to.be.a(\"string\").and.not.empty;\r
+
+      });"
+    language: text/javascript
+order: 1790609447854

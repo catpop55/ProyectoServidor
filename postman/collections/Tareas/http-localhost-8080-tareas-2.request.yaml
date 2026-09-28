@@ -1,0 +1,19 @@
+$kind: http-request
+name: http://localhost:8080/tareas
+description: ""
+url: http://localhost:8080/tareas
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"id\": 1,\r
+
+    \    \"titulo\": \"cambio\",\r
+
+    \    \"prioridad\": 1,\r
+
+    \    \"completada\": false\r
+
+    }"
+order: 2333132643421300

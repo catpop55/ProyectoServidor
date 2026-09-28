@@ -1,0 +1,29 @@
+$kind: http-request
+name: http://localhost:8080/tareas
+url: http://localhost:8080/tareas
+method: GET
+scripts:
+  - type: afterResponse
+    code: |
+      pm.test("La respuesta es un array y contiene los campos esperados", function () {
+          const cuerpo = pm.response.json();
+          pm.expect(cuerpo).to.be.an("array");
+          pm.expect(cuerpo.length).to.be.above(0);
+          
+          cuerpo.forEach(item => {
+              pm.expect(item).to.have.property("id");
+              pm.expect(item).to.have.property("titulo");
+              pm.expect(item).to.have.property("prioridad");
+              pm.expect(item).to.have.property("completada");
+          });
+      });
+
+      pm.test("Los campos tienen el tipo correcto", function () {
+          const cuerpo = pm.response.json();
+          cuerpo.forEach(item => {
+              pm.expect(item.id).to.be.a("number");
+              pm.expect(item.titulo).to.be.a("string");
+              pm.expect(item.completada).to.be.a("boolean");
+          });
+      });
+order: 193949976628250
