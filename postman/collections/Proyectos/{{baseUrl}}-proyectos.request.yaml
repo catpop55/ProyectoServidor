@@ -1,0 +1,21 @@
+$kind: http-request
+name: "{{baseUrl}}/proyectos"
+description: ""
+url: "{{baseUrl}}/proyectos"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"id\": 1,\r
+
+    \    \"nombre\": \"proyecto1\",\r
+
+    \    \"descripcion\": \"esto es una prueba\",\r
+
+    \    \"activo\": false,\r
+
+    \    \"numeroDeIncidencias\": 2\r
+
+    }"
+order: 1790694453527

@@ -1,0 +1,6 @@
+$kind: http-request
+name: "{{baseUrl}}/proyectos/1"
+description: ""
+url: "{{baseUrl}}/proyectos/1"
+method: GET
+order: 3732426948453364

@@ -6,6 +6,7 @@ public class Tarea {
     private String titulo;
     private String prioridad;
     private boolean completada;
+    private int proyectoId;
 
     public Tarea() {
     }
@@ -47,5 +48,13 @@ public class Tarea {
 
     public void setCompletada(boolean completada) {
         this.completada = completada;
+    }
+
+    public int getProyectoId() {
+        return proyectoId;
+    }
+
+    public void setProyectoId(int proyectoId) {
+        this.proyectoId = proyectoId;
     }
 }

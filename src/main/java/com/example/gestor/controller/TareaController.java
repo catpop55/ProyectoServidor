@@ -18,14 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.gestor.memoria.MemoriaProyecto;
 import com.example.gestor.model.Tarea;
 
 @RestController
 @RequestMapping("/tareas")
 public class TareaController {
 
-    private final List<Tarea> tareas = new ArrayList<>();
+    private final List<Tarea> tareas;
     private int siguienteId = 1;
+
+    public TareaController(MemoriaProyecto memoria) {
+        this.tareas = memoria.getTareas();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Tarea> detalle(@PathVariable(name = "id") int id) {
@@ -125,5 +130,7 @@ public class TareaController {
         }
         return null;
     }
+
+    
 
 }
