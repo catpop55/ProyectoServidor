@@ -7,6 +7,7 @@ public class Tarea {
     private String prioridad;
     private boolean completada;
     private int proyectoId;
+    private String notaInterna = "pendiente de reivisón interna";
 
     public Tarea() {
     }
@@ -16,6 +17,10 @@ public class Tarea {
         this.titulo = titulo;
         this.prioridad = prioridad;
         this.completada = completada;
+    }
+
+    public String getNotaInterna() {
+        return notaInterna;
     }
 
     public int getId() {
@@ -58,3 +63,5 @@ public class Tarea {
         this.proyectoId = proyectoId;
     }
 }
+
+

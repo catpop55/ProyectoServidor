@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.gestor.dto.TareaResponse;
 import com.example.gestor.memoria.MemoriaProyecto;
 import com.example.gestor.model.Tarea;
 
@@ -33,17 +34,17 @@ public class TareaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tarea> detalle(@PathVariable(name = "id") int id) {
+    public ResponseEntity<TareaResponse> detalle(@PathVariable(name = "id") int id) {
         for (Tarea tarea : tareas) {
             if (tarea.getId() == id) {
-                return ResponseEntity.ok(tarea);
+                return ResponseEntity.ok(TareaResponse.desde(tarea));
             }
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
-    public Tarea actualizar(
+    public ResponseEntity<TareaResponse> actualizar(
             @PathVariable(name = "id") int id,
             @RequestBody Tarea datos) {
 
@@ -51,14 +52,14 @@ public class TareaController {
             if (tareas.get(i).getId() == id) {
                 datos.setId(id);
                 tareas.set(i, datos);
-                return datos;
+                return ResponseEntity.ok(TareaResponse.desde(datos));
             }
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public ResponseEntity<Tarea> crear(@RequestBody Tarea tarea) {
+    public ResponseEntity<TareaResponse> crear(@RequestBody Tarea tarea) {
         tarea.setId(siguienteId);
         siguienteId = siguienteId + 1;
         tareas.add(tarea);
@@ -69,20 +70,25 @@ public class TareaController {
                 .buildAndExpand(tarea.getId())
                 .toUri();
 
-        return ResponseEntity.created(ubication).body(tarea);
+        return ResponseEntity.created(ubication).body(TareaResponse.desde(tarea));
     }
 
     @GetMapping
-    public List<Tarea> lista(
+    public List<TareaResponse> lista(
             @RequestParam(name = "completada", required = false) Boolean completada) {
+
+        List<TareaResponse> resultado = new ArrayList<>();
+
         if (completada == null) {
-            return tareas;
+            for (Tarea tarea : tareas) {
+                resultado.add(TareaResponse.desde(tarea));
+            }
+            return resultado;
         }
 
-        List<Tarea> resultado = new ArrayList<>();
         for (Tarea tarea : tareas) {
             if (tarea.isCompletada() == completada) {
-                resultado.add(tarea);
+                resultado.add(TareaResponse.desde(tarea));
             }
         }
         return resultado;
@@ -112,11 +118,11 @@ public class TareaController {
     }
 
     @PatchMapping("/{id}")
-    public Tarea modificar(
+    public ResponseEntity<TareaResponse> modificar(
             @PathVariable(name = "id") int id,
             @RequestBody Tarea cambios) {
         for (Tarea tarea : tareas) {
-            System.out.println("Hemos llegado aqui");
+
             if (tarea.getId() == id) {
                 if (cambios.getTitulo() != null) {
                     tarea.setTitulo(cambios.getTitulo());
@@ -125,12 +131,10 @@ public class TareaController {
                     tarea.setPrioridad(cambios.getPrioridad());
 
                 }
-                return tarea;
+                return ResponseEntity.ok(TareaResponse.desde(tarea));
             }
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
-
-    
 
 }
