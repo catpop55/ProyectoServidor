@@ -6,9 +6,9 @@ public class Tarea {
     private String titulo;
     private String prioridad;
     private boolean completada;
-    private int proyectoId;
+    private Integer proyectoId;
     private String notaInterna = "pendiente de reivisón interna";
-
+    
     public Tarea() {
     }
 
@@ -19,49 +19,22 @@ public class Tarea {
         this.completada = completada;
     }
 
-    public String getNotaInterna() {
-        return notaInterna;
-    }
+    public String getNotaInterna() { return notaInterna; }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getTitulo() { return titulo; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
 
-    public String getTitulo() {
-        return titulo;
-    }
+    public String getPrioridad() { return prioridad; }
+    public void setPrioridad(String prioridad) { this.prioridad = prioridad; }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
+    public boolean isCompletada() { return completada; }
+    public void setCompletada(boolean completada) { this.completada = completada; }
 
-    public String getPrioridad() {
-        return prioridad;
-    }
-
-    public void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
-    }
-
-    public boolean isCompletada() {
-        return completada;
-    }
-
-    public void setCompletada(boolean completada) {
-        this.completada = completada;
-    }
-
-    public int getProyectoId() {
-        return proyectoId;
-    }
-
-    public void setProyectoId(int proyectoId) {
-        this.proyectoId = proyectoId;
-    }
+    public Integer getProyectoId() { return proyectoId; }
+    public void setProyectoId(Integer proyectoId) { this.proyectoId = proyectoId; }
 }
 
 

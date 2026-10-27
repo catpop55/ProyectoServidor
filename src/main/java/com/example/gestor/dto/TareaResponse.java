@@ -7,7 +7,7 @@ public record TareaResponse(
     String titulo,
     String prioridad,
     boolean completada,
-    int proyectoId
+    Integer proyectoId
 ) {
     public static TareaResponse desde (Tarea tarea) {
         return new TareaResponse(tarea.getId(),

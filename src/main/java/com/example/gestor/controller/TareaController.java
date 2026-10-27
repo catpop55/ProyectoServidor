@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.gestor.dto.TareaPatchRequest;
+import com.example.gestor.dto.TareaRequest;
 import com.example.gestor.dto.TareaResponse;
 import com.example.gestor.memoria.MemoriaProyecto;
 import com.example.gestor.model.Tarea;
@@ -59,9 +61,19 @@ public class TareaController {
     }
 
     @PostMapping
-    public ResponseEntity<TareaResponse> crear(@RequestBody Tarea tarea) {
+    public ResponseEntity<TareaResponse> crear(@RequestBody TareaRequest peticion) {
+
+        Tarea tarea = new Tarea();
         tarea.setId(siguienteId);
         siguienteId = siguienteId + 1;
+        tarea.setTitulo(peticion.getTitulo());
+        tarea.setPrioridad(peticion.getPrioridad());
+        tarea.setCompletada(false);
+
+        if (peticion.getProyectoId() != null) {
+            tarea.setProyectoId(peticion.getProyectoId());
+        }
+
         tareas.add(tarea);
 
         URI ubication = ServletUriComponentsBuilder
@@ -120,7 +132,7 @@ public class TareaController {
     @PatchMapping("/{id}")
     public ResponseEntity<TareaResponse> modificar(
             @PathVariable(name = "id") int id,
-            @RequestBody Tarea cambios) {
+            @RequestBody TareaPatchRequest cambios) {
         for (Tarea tarea : tareas) {
 
             if (tarea.getId() == id) {
@@ -129,7 +141,9 @@ public class TareaController {
                 }
                 if (cambios.getPrioridad() != null) {
                     tarea.setPrioridad(cambios.getPrioridad());
-
+                }
+                if (cambios.getCompletada() != null) {
+                    tarea.setCompletada(cambios.getCompletada());
                 }
                 return ResponseEntity.ok(TareaResponse.desde(tarea));
             }
